@@ -2,6 +2,7 @@ package com.bankapp.peertopeer.repository;
 
 import com.bankapp.peertopeer.model.Account;
 import com.bankapp.peertopeer.model.Transaction;
+import com.bankapp.peertopeer.model.type.TransactionType;
 import com.bankapp.peertopeer.service.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

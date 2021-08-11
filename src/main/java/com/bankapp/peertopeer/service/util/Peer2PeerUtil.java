@@ -1,6 +1,8 @@
 package com.bankapp.peertopeer.service.util;
 
-
+import com.bankapp.peertopeer.model.request.Send;
+import com.bankapp.peertopeer.model.request.Transfer;
+import com.bankapp.peertopeer.model.response.DefaultResponse;
 import com.bankapp.peertopeer.model.Account;
 import com.sun.istack.internal.NotNull;
 import org.springframework.stereotype.Service;
@@ -28,8 +30,16 @@ public class Peer2PeerUtil {
         }
     }
 
-    public boolean canWithDraw(Withdraw withdraw, Account account){
-        if(withdraw.getWithdrawnAmount()<account.getBalance()&&(account.getBalance()-withdraw.getWithdrawnAmount())>500.0){
+    public boolean canSend(Send send, Account account){
+        if(send.getSendAmount()<account.getBalance()&&(account.getBalance()-send.getSendAmount())>500.0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean canTransfer(Transfer transfer, Account account){
+        if(transfer.getTransferAmount()<account.getBalance()&&(account.getBalance()-transfer.getTransferAmount())>500.0){
             return true;
         }else{
             return false;
