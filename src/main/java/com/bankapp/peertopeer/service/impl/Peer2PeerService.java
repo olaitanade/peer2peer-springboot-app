@@ -57,6 +57,19 @@ public class Peer2PeerService implements IPeer2PeerService {
     }
 
     @Override
+    public ResponseEntity<?> getAccountStatement(@NotNull Credential credential) {
+        Account account = peer2PeerRepo.getAccountByNumber(credential.getAccountNumber());
+        DefaultResponse authStatus = peer2PeerUtil.authorize(account,passwordUtil.hashPassword(credential.getAccountPassword()));
+
+        if(!authStatus.isSuccess()){
+            return new ResponseEntity<>(authStatus, HttpStatus.resolve(authStatus.getResponseCode()));
+        }else{
+            List<Transaction> transactionList = peer2PeerRepo.getTransactionByNumber(account.getAccountNumber());
+            return new ResponseEntity<>(transactionList, HttpStatus.OK);
+        }
+    }
+
+    @Override
     public ResponseEntity<?> deposit(@NotNull Deposit deposit) {
         Account account = peer2PeerRepo.getAccountByNumber(deposit.getAccountNumber());
         DefaultResponse defaultResponse = peer2PeerUtil.authorize(account);
@@ -121,7 +134,7 @@ public class Peer2PeerService implements IPeer2PeerService {
 
                 return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
             }else{
-                return new ResponseEntity<>(new DefaultResponse(400,false,"You need at least 500 Naira to be left in you account after withdrawal"), HttpStatus.resolve(400));
+                return new ResponseEntity<>(new DefaultResponse(400,false,"You need at least 1 dollar to be left in you account"), HttpStatus.resolve(400));
             }
         }
     }
@@ -155,7 +168,7 @@ public class Peer2PeerService implements IPeer2PeerService {
 
                 return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
             }else{
-                return new ResponseEntity<>(new DefaultResponse(400,false,"You need at least 500 Naira to be left in you account after withdrawal"), HttpStatus.resolve(400));
+                return new ResponseEntity<>(new DefaultResponse(400,false,"You need at least 1 Dollar to be left in you account"), HttpStatus.resolve(400));
             }
         }
     }

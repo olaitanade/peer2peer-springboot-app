@@ -26,34 +26,27 @@ public class Peer2PeerApplicationRepo {
     }
 
     public void initialize(){
-        Account customer1 = new Account();
-        customer1.setAccountName("John Elon");
-        customer1.setAccountNumber("1234567893");
-        customer1.setAccountPassword(passwordUtil.hashPassword("123456"));
-        customer1.setBalance(4000.0);
-        accounts.add(customer1);
+        Account userA = new Account();
+        userA.setAccountName("John Elon");
+        userA.setAccountNumber("1234567893");
+        userA.setAccountPassword(passwordUtil.hashPassword("123456"));
+        userA.setBalance(10.0);
+        accounts.add(userA);
 
-        Account customer2 = new Account();
-        customer2.setAccountName("Mercy Johnson");
-        customer2.setAccountNumber("1231345654");
-        customer2.setAccountPassword(passwordUtil.hashPassword("uiopty"));
-        customer2.setBalance(3000.0);
-        accounts.add(customer2);
-
-        Account customer3 = new Account();
-        customer3.setAccountName("Peter Soul");
-        customer3.setAccountNumber("0192837465");
-        customer3.setAccountPassword(passwordUtil.hashPassword("qwerty"));
-        customer3.setBalance(2500.0);
-        accounts.add(customer3);
+        Account userB = new Account();
+        userB.setAccountName("Mercy Johnson");
+        userB.setAccountNumber("1231345654");
+        userB.setAccountPassword(passwordUtil.hashPassword("uiopty"));
+        userB.setBalance(20.0);
+        accounts.add(userB);
 
         Transaction transaction = new Transaction();
         transaction.setTransactionDate(new Date());
         transaction.setTransactionType(TransactionType.DEPOSIT);
         transaction.setNarration("Savings");
-        transaction.setAmount(2500.0);
-        transaction.setAccountNumber("0192837465");
-        transaction.setAccountBalance(2500.0);
+        transaction.setAmount(10.0);
+        transaction.setAccountNumber(userA.getAccountNumber());
+        transaction.setAccountBalance(10.0);
         transaction.setTransactionId(UUID.randomUUID().toString());
         transactions.add(transaction);
 
@@ -61,21 +54,11 @@ public class Peer2PeerApplicationRepo {
         transaction1.setTransactionDate(new Date());
         transaction1.setTransactionType(TransactionType.DEPOSIT);
         transaction1.setNarration("Savings");
-        transaction1.setAmount(3000.0);
-        transaction1.setAccountNumber("1231345654");
-        transaction1.setAccountBalance(3000.0);
+        transaction1.setAmount(20.0);
+        transaction1.setAccountNumber(userB.getAccountNumber());
+        transaction1.setAccountBalance(20.0);
         transaction1.setTransactionId(UUID.randomUUID().toString());
         transactions.add(transaction1);
-
-        Transaction transaction2 = new Transaction();
-        transaction2.setTransactionDate(new Date());
-        transaction2.setTransactionType(TransactionType.DEPOSIT);
-        transaction2.setNarration("Savings");
-        transaction2.setAmount(4000.0);
-        transaction2.setAccountNumber("1234567893");
-        transaction2.setAccountBalance(4000.0);
-        transaction2.setTransactionId(UUID.randomUUID().toString());
-        transactions.add(transaction2);
     }
 
     public List<Account> getAccounts(){

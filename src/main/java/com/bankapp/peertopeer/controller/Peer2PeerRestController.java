@@ -28,6 +28,11 @@ public class Peer2PeerRestController {
         return peer2PeerService.getAccountBalance(credential);
     }
 
+    @RequestMapping(value = "/account_statement", method = RequestMethod.POST)
+    public ResponseEntity<?> accountStatement(@Valid @RequestBody Credential credential) {
+        return peer2PeerService.getAccountStatement(credential);
+    }
+
     @RequestMapping(value = "/deposit", method = RequestMethod.POST)
     public ResponseEntity<?> deposit(@Valid @RequestBody Deposit deposit) {
         return peer2PeerService.deposit(deposit);

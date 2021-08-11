@@ -31,7 +31,7 @@ public class Peer2PeerUtil {
     }
 
     public boolean canSend(Send send, Account account){
-        if(send.getSendAmount()<account.getBalance()&&(account.getBalance()-send.getSendAmount())>500.0){
+        if(send.getSendAmount()<=account.getBalance()){
             return true;
         }else{
             return false;
@@ -39,7 +39,7 @@ public class Peer2PeerUtil {
     }
 
     public boolean canTransfer(Transfer transfer, Account account){
-        if(transfer.getTransferAmount()<account.getBalance()&&(account.getBalance()-transfer.getTransferAmount())>500.0){
+        if(transfer.getTransferAmount()<=account.getBalance()){
             return true;
         }else{
             return false;
