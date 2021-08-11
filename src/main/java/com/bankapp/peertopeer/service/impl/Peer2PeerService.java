@@ -125,11 +125,10 @@ public class Peer2PeerService implements IPeer2PeerService {
                 transactionReceived.setNarration("Receive");
                 peer2PeerRepo.insertTransaction(transactionReceived);
 
-
                 account.setBalance(transactionSent.getAccountBalance());
                 peer2PeerRepo.updateAccount(account);
 
-                beneficiaryAccount.addToBalance(send.getSendAmount());
+                beneficiaryAccount.setBalance(transactionReceived.getAccountBalance());
                 peer2PeerRepo.updateAccount(beneficiaryAccount);
 
                 return new ResponseEntity<>(new DefaultResponse(), HttpStatus.OK);
@@ -149,7 +148,7 @@ public class Peer2PeerService implements IPeer2PeerService {
         }else{
             if(peer2PeerUtil.canTransfer(transfer,account)){
                 Transaction transactionSent = new Transaction();
-                transactionSent.setTransactionType(TransactionType.SEND);
+                transactionSent.setTransactionType(TransactionType.TRANSFER);
                 transactionSent.setTransactionDate(new Date());
                 transactionSent.setAccountBalance(account.getBalance()-transfer.getTransferAmount());
                 transactionSent.setAmount(transfer.getTransferAmount());
